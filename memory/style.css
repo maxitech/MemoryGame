@@ -20,7 +20,26 @@ body {
 }
 
 header {
-  margin-bottom: 15em;
+  margin-top: 2em;
+  margin-bottom: 5em;
+}
+
+header > h1 {
+  margin-bottom: 1.5em;
+}
+
+header > p {
+  line-height: 30px;
+  letter-spacing: 1px;
+}
+
+.section_counter {
+  padding: 1em;
+}
+
+.counters {
+  display: flex;
+  justify-content: space-between;
 }
 
 .section-game {
@@ -37,11 +56,17 @@ header {
 }
 
 .field {
+  font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 70px;
 
-  border: 1px solid #fff;
+  width: 100px;
+  height: 100px;
+
+  cursor: pointer;
 }
