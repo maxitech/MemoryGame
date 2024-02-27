@@ -3,11 +3,11 @@ function setGridBasedOnScreenSize() {
   const gameBoard = document.getElementById('field_container');
 
   if (screenWidth <= 600) {
-    gameBoard.className = 'grid-3x3';
-    generateCards(9);
+    gameBoard.className = 'grid-4x3';
+    generateCards(12);
   } else {
-    gameBoard.className = 'grid-5x5';
-    generateCards(25);
+    gameBoard.className = 'grid-6x4';
+    generateCards(24);
   }
 }
 

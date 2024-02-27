@@ -51,18 +51,18 @@ header > p {
   margin-bottom: 2em;
 }
 
-.grid-3x3 {
+.grid-4x3 {
   display: grid;
-  gap: 1em;
-  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5em;
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
 }
 
-.grid-5x5 {
+.grid-6x4 {
   display: grid;
   gap: 1em;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 }
 
 .field {
@@ -75,8 +75,8 @@ header > p {
   align-items: center;
   justify-content: center;
 
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
 
   cursor: pointer;
 }
@@ -91,13 +91,18 @@ header > p {
   }
 
   .field {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
   }
 }
 
 @media only screen and (min-width: 600px) {
   .counters {
-    gap: 22em;
+    gap: 29.5em;
+  }
+
+  .field {
+    width: 100px;
+    height: 100px;
   }
 }
