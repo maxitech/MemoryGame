@@ -2,7 +2,7 @@ function setGridBasedOnScreenSize() {
   const screenWidth = window.innerWidth;
   const gameBoard = document.getElementById('field_container');
 
-  if (screenWidth <= 600) {
+  if (screenWidth <= 720) {
     gameBoard.className = 'grid-4x3';
     generateCards(12);
   } else {

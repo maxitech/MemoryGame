@@ -96,7 +96,7 @@ header > p {
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 720px) {
   header > h1 {
     font-size: 3rem;
   }
