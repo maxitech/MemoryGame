@@ -1,3 +1,5 @@
+import { startCounter, resetCounter } from './src/timer';
+
 const gameInfo = document.getElementById('counters');
 const startBtn = document.getElementById('play_game-btn');
 const symbolPool = ['😀', '😎', '🎉', '🚀', '🌈', '🍕', '🐱', '🦄', '🎈', '🌟', '🍦', '🌸'];
@@ -7,6 +9,7 @@ let cards = [];
 let flippedCards = [];
 let matchedPairs = 0;
 let previousScreenWidth = window.innerWidth;
+let gameStarted = false;
 
 function setGridBasedOnScreenSize() {
   const screenWidth = window.innerWidth;
@@ -128,12 +131,15 @@ function checkForMatch() {
 
   flippedCards = [];
 }
-let started = false;
-function changePlayBtnText() {
-  const gameBoard = document.getElementById('field_container');
 
-  started = !started;
-  if (started || gameBoard) {
+function changePlayBtnText() {
+  if (initialized) {
+    if (gameStarted) {
+      resetCounter();
+    } else {
+      startCounter();
+      gameStarted = true;
+    }
     startBtn.textContent = 'Reset';
   } else {
     startBtn.textContent = 'Play';
@@ -146,13 +152,15 @@ function reset() {
   cards = [];
   flippedCards = [];
   matchedPairs = 0;
+  changePlayBtnText();
+  resetCounter();
 }
 
 function startGame() {
+  initialized = true;
   initializeGame();
   gameInfo.classList.remove('hidden');
   console.log('Game Start');
   changePlayBtnText();
-  reset();
 }
 startBtn.addEventListener('click', () => startGame());
