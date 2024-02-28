@@ -26,9 +26,12 @@ header {
 
 header > h1 {
   margin-bottom: 1.5em;
+  font-weight: 400;
 }
 
-header > p {
+header > h2 {
+  font-size: 1rem;
+  font-weight: 400;
   line-height: 30px;
   letter-spacing: 1px;
 }
@@ -81,17 +84,20 @@ header > p {
   cursor: pointer;
   perspective: 1000px;
   transition: transform 0.5s ease;
+  user-select: none;
 }
 
 .field .content {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.5rem;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   transition: transform 0.5s ease;
   transform: rotateY(180deg);
+  user-select: none;
 }
 
 .field.flipped .content {
@@ -104,7 +110,6 @@ header > p {
   color: #fff;
   border: 1px solid #fff;
   padding: 2em 4em;
-
   cursor: pointer;
 }
 
