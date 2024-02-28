@@ -144,6 +144,7 @@ function checkForMatch() {
 
 function changePlayBtnText() {
   if (globalObj.initialized) {
+    if (globalObj.initialized) document.getElementById('header_secondary').textContent = '';
     if (globalObj.gameStarted) {
       reset();
     } else {
