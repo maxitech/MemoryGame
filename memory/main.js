@@ -17,6 +17,7 @@ function setGridBasedOnScreenSize() {
     gameBoard.innerHTML = '';
     gameInfo.classList.add('hidden');
     previousScreenWidth = screenWidth;
+    startBtn.textContent = 'Play';
   }
 
   if (screenWidth <= 720) {
@@ -129,8 +130,10 @@ function checkForMatch() {
 }
 let started = false;
 function changePlayBtnText() {
+  const gameBoard = document.getElementById('field_container');
+
   started = !started;
-  if (started) {
+  if (started || gameBoard) {
     startBtn.textContent = 'Reset';
   } else {
     startBtn.textContent = 'Play';
