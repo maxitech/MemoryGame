@@ -1,4 +1,5 @@
 import { startCounter, resetCounter } from './src/timer';
+import confetti from 'canvas-confetti';
 
 const game = {
   info: document.getElementById('counters'),
@@ -121,10 +122,17 @@ function checkForMatch() {
 
     if (globalObj.matchedPairs === totalPairs) {
       setTimeout(() => {
-        alert('Congratulations, you won!');
-        startGame();
-      }, 250);
-      reset();
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+
+        setTimeout(() => {
+          reset();
+          startGame();
+        }, 1000);
+      }, 500);
     }
   } else {
     card1.classList.remove('flipped');
