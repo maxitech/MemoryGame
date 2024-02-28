@@ -123,7 +123,7 @@ function checkForMatch() {
     if (globalObj.matchedPairs === totalPairs) {
       setTimeout(() => {
         confetti({
-          particleCount: 100,
+          particleCount: 300,
           spread: 70,
           origin: { y: 0.6 },
         });
@@ -131,7 +131,7 @@ function checkForMatch() {
         setTimeout(() => {
           reset();
           startGame();
-        }, 1500);
+        }, 3000);
       }, 500);
     }
   } else {
