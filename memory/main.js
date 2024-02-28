@@ -3,6 +3,7 @@ import { startCounter, resetCounter } from './src/timer';
 const game = {
   info: document.getElementById('counters'),
   startBtn: document.getElementById('play_game-btn'),
+  tryCountEl: document.getElementById('try_count'),
   symbolPool: ['😀', '😎', '🎉', '🚀', '🌈', '🍕', '🐱', '🦄', '🎈', '🌟', '🍦', '🌸'],
   symbols: null,
   initialized: false,
@@ -13,20 +14,22 @@ const game = {
   tryCount: 0,
 };
 
+const globalObj = game;
+
 function setGridBasedOnScreenSize() {
   const screenWidth = window.innerWidth;
   const gameBoard = document.getElementById('field_container');
 
-  if (screenWidth !== game.previousScreenWidth) {
+  if (screenWidth !== globalObj.previousScreenWidth) {
     reset();
     gameBoard.innerHTML = '';
-    game.info.classList.add('hidden');
-    game.previousScreenWidth = screenWidth;
-    game.startBtn.textContent = 'Play';
+    globalObj.info.classList.add('hidden');
+    globalObj.previousScreenWidth = screenWidth;
+    globalObj.startBtn.textContent = 'Play';
   }
 
   gameBoard.className = screenWidth <= 720 ? 'grid-4x3' : 'grid-6x4';
-  game.symbols = generateArray(screenWidth <= 720 ? 6 : 12);
+  globalObj.symbols = generateArray(screenWidth <= 720 ? 6 : 12);
 }
 
 window.addEventListener('resize', setGridBasedOnScreenSize);
@@ -38,8 +41,8 @@ function generateArray(length) {
   const newArray = [];
 
   while (newArray.length < length) {
-    const randomIndex = Math.floor(Math.random() * game.symbolPool.length);
-    const symbol = game.symbolPool[randomIndex];
+    const randomIndex = Math.floor(Math.random() * globalObj.symbolPool.length);
+    const symbol = globalObj.symbolPool[randomIndex];
 
     if (!newArray.includes(symbol)) {
       newArray.push(symbol);
@@ -68,12 +71,14 @@ function createCard(symbol) {
 }
 
 function initializeGame() {
-  if (!game.symbols) return;
+  if (!globalObj.symbols) return;
 
   const gameBoard = document.getElementById('field_container');
   gameBoard.innerHTML = '';
 
-  const shuffledSymbols = [...game.symbols, ...game.symbols].sort(() => Math.random() - 0.5);
+  const shuffledSymbols = [...globalObj.symbols, ...globalObj.symbols].sort(
+    () => Math.random() - 0.5
+  );
 
   shuffledSymbols.forEach((symbol) => {
     const card = createCard(symbol);
@@ -82,26 +87,25 @@ function initializeGame() {
 }
 
 function flipCard(card) {
-  const tryCountEl = document.getElementById('try_count');
   if (
-    game.flippedCards.length < 2 &&
-    !game.flippedCards.includes(card) &&
+    globalObj.flippedCards.length < 2 &&
+    !globalObj.flippedCards.includes(card) &&
     !card.classList.contains('matched')
   ) {
     card.classList.add('flipped');
-    game.flippedCards.push(card);
+    globalObj.flippedCards.push(card);
 
-    if (game.flippedCards.length === 2) {
-      game.tryCount++;
-      tryCountEl.textContent = `Try's: ${game.tryCount}`;
+    if (globalObj.flippedCards.length === 2) {
+      globalObj.tryCount++;
+      globalObj.tryCountEl.textContent = `Try's: ${globalObj.tryCount}`;
       setTimeout(checkForMatch, 1000);
     }
   }
 }
 
 function checkForMatch() {
-  const totalPairs = game.symbols.length;
-  const [card1, card2] = game.flippedCards;
+  const totalPairs = globalObj.symbols.length;
+  const [card1, card2] = globalObj.flippedCards;
   const symbol1 = card1?.textContent;
   const symbol2 = card2?.textContent;
 
@@ -113,9 +117,9 @@ function checkForMatch() {
     card1.disabled = true;
     card2.disabled = true;
 
-    game.matchedPairs++;
+    globalObj.matchedPairs++;
 
-    if (game.matchedPairs === totalPairs) {
+    if (globalObj.matchedPairs === totalPairs) {
       setTimeout(() => {
         alert('Congratulations, you won!');
         startGame();
@@ -127,38 +131,39 @@ function checkForMatch() {
     card2.classList.remove('flipped');
   }
 
-  game.flippedCards = [];
+  globalObj.flippedCards = [];
 }
 
 function changePlayBtnText() {
-  if (game.initialized) {
-    if (game.gameStarted) {
-      resetCounter();
+  if (globalObj.initialized) {
+    if (globalObj.gameStarted) {
+      reset();
     } else {
       startCounter();
-      game.gameStarted = true;
+      globalObj.gameStarted = true;
     }
-    game.startBtn.textContent = 'Reset';
+    globalObj.startBtn.textContent = 'Reset';
   } else {
-    game.startBtn.textContent = 'Play';
+    globalObj.startBtn.textContent = 'Play';
   }
 }
 
 function reset() {
-  game.initialized = false;
-  game.previousScreenWidth = window.innerWidth;
-  game.flippedCards = [];
-  game.matchedPairs = 0;
-  game.tryCount = 0;
+  globalObj.initialized = false;
+  globalObj.previousScreenWidth = window.innerWidth;
+  globalObj.flippedCards = [];
+  globalObj.matchedPairs = 0;
+  globalObj.tryCount = 0;
+  globalObj.tryCountEl.textContent = `Try's: ${globalObj.tryCount}`;
   changePlayBtnText();
   resetCounter();
 }
 
 function startGame() {
-  game.initialized = true;
+  globalObj.initialized = true;
   initializeGame();
-  game.info.classList.remove('hidden');
+  globalObj.info.classList.remove('hidden');
   changePlayBtnText();
 }
 
-game.startBtn.addEventListener('click', startGame);
+globalObj.startBtn.addEventListener('click', startGame);
