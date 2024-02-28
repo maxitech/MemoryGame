@@ -5,6 +5,7 @@ const game = {
   info: document.getElementById('counters'),
   startBtn: document.getElementById('play_game-btn'),
   tryCountEl: document.getElementById('try_count'),
+  headerSecondary: document.getElementById('header_secondary'),
   symbolPool: ['😀', '😎', '🎉', '🚀', '🌈', '🍕', '🐱', '🦄', '🎈', '🌟', '🍦', '🌸'],
   symbols: null,
   initialized: false,
@@ -144,7 +145,6 @@ function checkForMatch() {
 
 function changePlayBtnText() {
   if (globalObj.initialized) {
-    if (globalObj.initialized) document.getElementById('header_secondary').textContent = '';
     if (globalObj.gameStarted) {
       reset();
     } else {
@@ -169,6 +169,7 @@ function reset() {
 }
 
 function startGame() {
+  globalObj.headerSecondary.textContent = '';
   globalObj.initialized = true;
   initializeGame();
   globalObj.info.classList.remove('hidden');
