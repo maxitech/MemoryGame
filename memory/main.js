@@ -58,7 +58,6 @@ function createCard(symbol) {
   card.appendChild(contentContainer);
 
   card.addEventListener('click', () => {
-    card.classList.add('flipped');
     contentContainer.textContent = symbol;
     flipCard(card);
   });
@@ -84,6 +83,7 @@ function flipCard(card) {
     !flippedCards.includes(card) &&
     !card.classList.contains('matched')
   ) {
+    card.classList.add('flipped');
     flippedCards.push(card);
 
     console.log(flippedCards);
