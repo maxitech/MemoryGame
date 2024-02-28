@@ -3,10 +3,11 @@ const startBtn = document.getElementById('play_game-btn');
 const symbolPool = ['😀', '😎', '🎉', '🚀', '🌈', '🍕', '🐱', '🦄', '🎈', '🌟', '🍦', '🌸'];
 let symbols;
 let initialized = false;
-let previousScreenWidth = 0;
 let cards = [];
 let flippedCards = [];
 let matchedPairs = 0;
+
+let previousScreenWidth = window.innerWidth;
 
 function setGridBasedOnScreenSize() {
   const screenWidth = window.innerWidth;
@@ -142,7 +143,7 @@ function changePlayBtnText() {
 
 function reset() {
   initialized = false;
-  previousScreenWidth = 0;
+  previousScreenWidth = window.innerWidth;
   cards = [];
   flippedCards = [];
   matchedPairs = 0;
