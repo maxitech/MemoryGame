@@ -1,36 +1,34 @@
 import { startCounter, resetCounter } from './src/timer';
 
-const gameInfo = document.getElementById('counters');
-const startBtn = document.getElementById('play_game-btn');
-const symbolPool = ['😀', '😎', '🎉', '🚀', '🌈', '🍕', '🐱', '🦄', '🎈', '🌟', '🍦', '🌸'];
-let symbols;
-let initialized = false;
-let cards = [];
-let flippedCards = [];
-let matchedPairs = 0;
-let previousScreenWidth = window.innerWidth;
-let gameStarted = false;
+const game = {
+  info: document.getElementById('counters'),
+  startBtn: document.getElementById('play_game-btn'),
+  symbolPool: ['😀', '😎', '🎉', '🚀', '🌈', '🍕', '🐱', '🦄', '🎈', '🌟', '🍦', '🌸'],
+  symbols: null,
+  initialized: false,
+  flippedCards: [],
+  matchedPairs: 0,
+  previousScreenWidth: window.innerWidth,
+  gameStarted: false,
+  tryCount: 0,
+};
 
 function setGridBasedOnScreenSize() {
   const screenWidth = window.innerWidth;
   const gameBoard = document.getElementById('field_container');
 
-  if (screenWidth !== previousScreenWidth) {
+  if (screenWidth !== game.previousScreenWidth) {
     reset();
     gameBoard.innerHTML = '';
-    gameInfo.classList.add('hidden');
-    previousScreenWidth = screenWidth;
-    startBtn.textContent = 'Play';
+    game.info.classList.add('hidden');
+    game.previousScreenWidth = screenWidth;
+    game.startBtn.textContent = 'Play';
   }
 
-  if (screenWidth <= 720) {
-    gameBoard.className = 'grid-4x3';
-    symbols = generateArray(6);
-  } else {
-    gameBoard.className = 'grid-6x4';
-    symbols = generateArray(12);
-  }
+  gameBoard.className = screenWidth <= 720 ? 'grid-4x3' : 'grid-6x4';
+  game.symbols = generateArray(screenWidth <= 720 ? 6 : 12);
 }
+
 window.addEventListener('resize', setGridBasedOnScreenSize);
 setGridBasedOnScreenSize();
 
@@ -40,8 +38,8 @@ function generateArray(length) {
   const newArray = [];
 
   while (newArray.length < length) {
-    const randomIndex = Math.floor(Math.random() * symbolPool.length);
-    const symbol = symbolPool[randomIndex];
+    const randomIndex = Math.floor(Math.random() * game.symbolPool.length);
+    const symbol = game.symbolPool[randomIndex];
 
     if (!newArray.includes(symbol)) {
       newArray.push(symbol);
@@ -65,46 +63,48 @@ function createCard(symbol) {
     contentContainer.textContent = symbol;
     flipCard(card);
   });
+
   return card;
 }
 
 function initializeGame() {
-  if (!symbols) return;
+  if (!game.symbols) return;
 
   const gameBoard = document.getElementById('field_container');
   gameBoard.innerHTML = '';
 
-  const shuffledSymbols = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
+  const shuffledSymbols = [...game.symbols, ...game.symbols].sort(() => Math.random() - 0.5);
 
   shuffledSymbols.forEach((symbol) => {
     const card = createCard(symbol);
     gameBoard.appendChild(card);
   });
 }
+
 function flipCard(card) {
+  const tryCountEl = document.getElementById('try_count');
   if (
-    flippedCards.length < 2 &&
-    !flippedCards.includes(card) &&
+    game.flippedCards.length < 2 &&
+    !game.flippedCards.includes(card) &&
     !card.classList.contains('matched')
   ) {
     card.classList.add('flipped');
-    flippedCards.push(card);
+    game.flippedCards.push(card);
 
-    console.log(flippedCards);
-
-    if (flippedCards.length === 2) {
+    if (game.flippedCards.length === 2) {
+      game.tryCount++;
+      tryCountEl.textContent = `Try's: ${game.tryCount}`;
       setTimeout(checkForMatch, 1000);
     }
   }
 }
 
 function checkForMatch() {
-  const totalPairs = symbols.length;
-  const [card1, card2] = flippedCards;
+  const totalPairs = game.symbols.length;
+  const [card1, card2] = game.flippedCards;
   const symbol1 = card1?.textContent;
   const symbol2 = card2?.textContent;
 
-  console.log(symbol1, symbol2);
   if (!symbol1 || !symbol2) return;
 
   if (symbol1 === symbol2) {
@@ -113,13 +113,11 @@ function checkForMatch() {
     card1.disabled = true;
     card2.disabled = true;
 
-    matchedPairs++;
+    game.matchedPairs++;
 
-    console.log(matchedPairs, totalPairs);
-
-    if (matchedPairs === totalPairs) {
+    if (game.matchedPairs === totalPairs) {
       setTimeout(() => {
-        alert('Glückwunsch, du hast gewonnen!');
+        alert('Congratulations, you won!');
         startGame();
       }, 250);
       reset();
@@ -129,38 +127,38 @@ function checkForMatch() {
     card2.classList.remove('flipped');
   }
 
-  flippedCards = [];
+  game.flippedCards = [];
 }
 
 function changePlayBtnText() {
-  if (initialized) {
-    if (gameStarted) {
+  if (game.initialized) {
+    if (game.gameStarted) {
       resetCounter();
     } else {
       startCounter();
-      gameStarted = true;
+      game.gameStarted = true;
     }
-    startBtn.textContent = 'Reset';
+    game.startBtn.textContent = 'Reset';
   } else {
-    startBtn.textContent = 'Play';
+    game.startBtn.textContent = 'Play';
   }
 }
 
 function reset() {
-  initialized = false;
-  previousScreenWidth = window.innerWidth;
-  cards = [];
-  flippedCards = [];
-  matchedPairs = 0;
+  game.initialized = false;
+  game.previousScreenWidth = window.innerWidth;
+  game.flippedCards = [];
+  game.matchedPairs = 0;
+  game.tryCount = 0;
   changePlayBtnText();
   resetCounter();
 }
 
 function startGame() {
-  initialized = true;
+  game.initialized = true;
   initializeGame();
-  gameInfo.classList.remove('hidden');
-  console.log('Game Start');
+  game.info.classList.remove('hidden');
   changePlayBtnText();
 }
-startBtn.addEventListener('click', () => startGame());
+
+game.startBtn.addEventListener('click', startGame);
