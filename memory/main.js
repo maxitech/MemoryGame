@@ -6,7 +6,6 @@ let initialized = false;
 let cards = [];
 let flippedCards = [];
 let matchedPairs = 0;
-
 let previousScreenWidth = window.innerWidth;
 
 function setGridBasedOnScreenSize() {
