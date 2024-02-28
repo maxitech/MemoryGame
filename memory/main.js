@@ -127,6 +127,15 @@ function checkForMatch() {
 
   flippedCards = [];
 }
+let started = false;
+function changePlayBtnText() {
+  started = !started;
+  if (started) {
+    startBtn.textContent = 'Reset';
+  } else {
+    startBtn.textContent = 'Play';
+  }
+}
 
 function reset() {
   initialized = false;
@@ -140,6 +149,7 @@ function startGame() {
   initializeGame();
   gameInfo.classList.remove('hidden');
   console.log('Game Start');
+  changePlayBtnText();
   reset();
 }
 startBtn.addEventListener('click', () => startGame());
