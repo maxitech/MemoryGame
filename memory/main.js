@@ -131,7 +131,7 @@ function checkForMatch() {
         setTimeout(() => {
           reset();
           startGame();
-        }, 1000);
+        }, 1500);
       }, 500);
     }
   } else {
