@@ -1,17 +1,17 @@
-# :game_die: Emoji Memory
+# Emoji Memory
 Experience a classic memory game brought to life in your browser! Test your memory skills with this engaging and interactive game built using vanilla JavaScript. Match pairs of cards while enjoying smooth gameplay and vibrant visuals. Perfect for sharpening your memory and having fun in your spare time, this game is a must-try for all ages. 
 Click [here to try it yourself!](https://memoryproto.netlify.app/) and experience the memory game firsthand.
 
 
-## :hammer_and_wrench: Main Technologies
+## 🚀 Main Technologies
 * `JavaScript`
 * `HTML`
 * `CSS`
 
-## Build Tools
+## 🛠️ Build Tools
 * [Vite](https://vitejs.dev/) - A fast and efficient build tool for modern web development. Vite is used to bundle and serve assets during development and optimize them for production.
 
-## Dependencies:
+## 📦 Dependencies:
 * [canvas-confetti](https://www.npmjs.com/package/canvas-confetti) - Enjoy a festive touch! Experience exhilarating moments as colorful confetti showers the screen upon completing the memory game, adding a delightful flourish to your victory. 
 
 ## :gear: Features 
