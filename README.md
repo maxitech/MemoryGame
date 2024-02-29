@@ -7,7 +7,6 @@ Click [here to try it yourself!](https://memoryproto.netlify.app/) and experienc
 * `JavaScript`
 * `HTML`
 * `CSS`
-* `Vite`
 
 ## Build Tools
 * [Vite](https://vitejs.dev/) - A fast and efficient build tool for modern web development. Vite is used to bundle and serve assets during development and optimize them for production.
