@@ -1,3 +1,4 @@
+import symbolPool from './src/symbols';
 import { startCounter, resetCounter } from './src/timer';
 import confetti from 'canvas-confetti';
 
@@ -6,7 +7,6 @@ const game = {
   startBtn: document.getElementById('play_game-btn'),
   tryCountEl: document.getElementById('try_count'),
   headerSecondary: document.getElementById('header_secondary'),
-  symbolPool: ['😀', '😎', '🎉', '🚀', '🌈', '🍕', '🐱', '🦄', '🎈', '🌟', '🍦', '🌸'],
   symbols: null,
   initialized: false,
   flippedCards: [],
@@ -43,8 +43,8 @@ function generateArray(length) {
   const newArray = [];
 
   while (newArray.length < length) {
-    const randomIndex = Math.floor(Math.random() * globalObj.symbolPool.length);
-    const symbol = globalObj.symbolPool[randomIndex];
+    const randomIndex = Math.floor(Math.random() * symbolPool.length);
+    const symbol = symbolPool[randomIndex];
 
     if (!newArray.includes(symbol)) {
       newArray.push(symbol);
