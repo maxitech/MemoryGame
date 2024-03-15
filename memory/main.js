@@ -185,7 +185,7 @@ function createTopString(bestTime, bestTry) {
       .padStart(2, '0')}`;
     globalObj.bestTimeEl.textContent = `Best Time: ${formattedBestTime} with ${bestTry} try's!`;
   } else {
-    globalObj.bestTimeEl.textContent = `Best Time: --:-- with 0 try's`;
+    globalObj.bestTimeEl.textContent = `Best Time: --:-- with 0 try's!`;
   }
 }
 
