@@ -125,10 +125,14 @@ header > h2 {
 }
 
 .hidden {
-  opacity: 0;
+  display: none;
 }
 
 @media only screen and (max-width: 320px) {
+  .best_time {
+    line-height: 1.5;
+  }
+
   .counters {
     gap: 2.5em;
   }
@@ -140,6 +144,12 @@ header > h2 {
   .field {
     width: 60px;
     height: 60px;
+  }
+}
+
+@media only screen and (max-width: 492px) {
+  .best_time {
+    line-height: 1.5;
   }
 }
 

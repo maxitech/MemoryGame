@@ -1,5 +1,5 @@
 import symbolPool from './src/symbols';
-import { startCounter, resetCounter } from './src/timer';
+import { startCounter, resetCounter, timerData } from './src/timer';
 import confetti from 'canvas-confetti';
 
 const game = {
@@ -7,6 +7,7 @@ const game = {
   startBtn: document.getElementById('play_game-btn'),
   tryCountEl: document.getElementById('try_count'),
   headerSecondary: document.getElementById('header_secondary'),
+  bestTimeEl: document.getElementById('best_time'),
   symbols: null,
   initialized: false,
   flippedCards: [],
@@ -122,6 +123,18 @@ function checkForMatch() {
     globalObj.matchedPairs++;
 
     if (globalObj.matchedPairs === totalPairs) {
+      const { bestTime, tryCount } = getDataFromLocalStorage();
+
+      if (!bestTime || timerData.counter < parseInt(bestTime)) {
+        localStorage.setItem('bestTime', timerData.counter.toString());
+        localStorage.setItem('tryCount', globalObj.tryCount.toString());
+      } else if (
+        timerData.counter === parseInt(bestTime) &&
+        globalObj.tryCount < parseInt(tryCount)
+      ) {
+        localStorage.setItem('tryCount', globalObj.tryCount.toString());
+      }
+
       setTimeout(() => {
         confetti({
           particleCount: 300,
@@ -157,6 +170,36 @@ function changePlayBtnText() {
   }
 }
 
+function getDataFromLocalStorage() {
+  const bestTime = localStorage.getItem('bestTime');
+  const tryCount = localStorage.getItem('tryCount');
+  return { bestTime, tryCount };
+}
+
+function createTopString(bestTime, bestTry) {
+  if ((bestTime, bestTry)) {
+    const minutes = Math.floor(bestTime / 60);
+    const seconds = bestTime % 60;
+    const formattedBestTime = `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
+    globalObj.bestTimeEl.textContent = `Best Time: ${formattedBestTime} with ${bestTry} try's!`;
+  } else {
+    globalObj.bestTimeEl.textContent = `Best Time: --:-- with 0 try's`;
+  }
+}
+
+function startGame() {
+  globalObj.headerSecondary.textContent = '';
+  globalObj.initialized = true;
+  initializeGame();
+  globalObj.info.classList.remove('hidden');
+  globalObj.bestTimeEl.classList.remove('hidden');
+  const { bestTime, tryCount } = getDataFromLocalStorage();
+  createTopString(bestTime, tryCount);
+  changePlayBtnText();
+}
+
 function reset() {
   globalObj.initialized = false;
   globalObj.previousScreenWidth = window.innerWidth;
@@ -166,14 +209,6 @@ function reset() {
   globalObj.tryCountEl.textContent = `Try's: ${globalObj.tryCount}`;
   changePlayBtnText();
   resetCounter();
-}
-
-function startGame() {
-  globalObj.headerSecondary.textContent = '';
-  globalObj.initialized = true;
-  initializeGame();
-  globalObj.info.classList.remove('hidden');
-  changePlayBtnText();
 }
 
 globalObj.startBtn.addEventListener('click', startGame);

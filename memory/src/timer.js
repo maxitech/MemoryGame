@@ -1,13 +1,15 @@
 const timer = document.getElementById('timer');
 
-let counter = 0;
-let timerId;
+const timerData = {
+  counter: 0,
+  timerId: undefined,
+};
 
 function startCounter() {
-  return (timerId = setInterval(() => {
-    counter++;
-    const minutes = Math.floor(counter / 60);
-    const seconds = counter % 60;
+  return (timerData.timerId = setInterval(() => {
+    timerData.counter++;
+    const minutes = Math.floor(timerData.counter / 60);
+    const seconds = timerData.counter % 60;
     const timeString = `${minutes.toString().padStart(2, '0')}:${seconds
       .toString()
       .padStart(2, '0')}`;
@@ -17,10 +19,10 @@ function startCounter() {
 }
 
 function resetCounter() {
-  clearInterval(timerId);
+  clearInterval(timerData.timerId);
   timer.textContent = '00:00';
-  counter = 0;
+  timerData.counter = 0;
   startCounter();
 }
 
-export { startCounter, resetCounter };
+export { startCounter, resetCounter, timerData };
