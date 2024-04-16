@@ -24,12 +24,6 @@ Click [here to try it yourself!](https://memoryproto.netlify.app/) and experienc
 ## :computer: Try it out!
   Explore the memory game and test your skills! Click [here](https://memoryproto.netlify.app/)
 
-## :bug: Issues and Troubleshooting
-
-### Web Manifest Integration
-
-I attempted to add a web manifest for customizing the app in the browser tab and adding an icon. However, I encountered difficulties and couldn't resolve the issue. If you have a solution or suggestions, feel free to contribute.
-
 Thank you for your understanding.
 
 ## :vertical_traffic_light: Running the Project
