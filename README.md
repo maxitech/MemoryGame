@@ -24,7 +24,6 @@ Click [here to try it yourself!](https://memoryproto.netlify.app/) and experienc
 ## :computer: Try it out!
   Explore the memory game and test your skills! Click [here](https://memoryproto.netlify.app/)
 
-Thank you for your understanding.
 
 ## :vertical_traffic_light: Running the Project
 To run the project in your local environment, follow these steps: 
